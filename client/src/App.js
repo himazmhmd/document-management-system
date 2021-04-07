@@ -1,13 +1,14 @@
 import React from "react";
 import Login from "./components/Login";
 import { Route, Switch } from "react-router-dom";
-import CssBaseline from "@material-ui/core/CssBaseline";
+
+import SignUp from "./components/SignUp";
 
 const App = () => {
   return (
     <Switch>
-      <CssBaseline />
       <Route exact path="/" component={Login} />
+      <Route path="/sign-up" component={SignUp} />
     </Switch>
   );
 };

@@ -36,8 +36,8 @@ const useStyles = makeStyles((theme) => ({
     backgroundRepeat: "no-repeat",
     backgroundColor:
       theme.palette.type === "light"
-        ? theme.palette.grey[50]
-        : theme.palette.grey[900],
+        ? theme.palette.grey[450]
+        : theme.palette.grey[1000],
     backgroundSize: "300px",
     backgroundPosition: "center",
     [theme.breakpoints.down("sm")]: {
@@ -56,10 +56,30 @@ const useStyles = makeStyles((theme) => ({
   },
   form: {
     width: "100%", // Fix IE 11 issue.
-    marginTop: theme.spacing(1),
+    marginTop: theme.spacing(5),
   },
   submit: {
     margin: theme.spacing(3, 0, 2),
+    width: "100px",
+    display: "inline-block",
+    float: "right",
+    marginRight: "50px",
+  },
+  textField: {
+    marginLeft: "50px",
+    marginRight: "auto",
+    display: "inline-block",
+    width: "80%",
+    float: "right",
+    alignItems: "center",
+    size: "small",
+    marginRight: "50px",
+  },
+  rememberMe: {
+    marginLeft: "50px",
+  },
+  signUp: {
+    marginRight: "50px",
   },
 }));
 
@@ -82,31 +102,33 @@ export default function Login() {
               variant="outlined"
               margin="normal"
               required
-              fullWidth
               id="email"
               label="Email Address"
               name="email"
               autoComplete="email"
               autoFocus
+              fullWidth
+              className={classes.textField}
             />
             <TextField
               variant="outlined"
               margin="normal"
               required
-              fullWidth
               name="password"
               label="Password"
               type="password"
               id="password"
               autoComplete="current-password"
+              fullWidth
+              className={classes.textField}
             />
             <FormControlLabel
               control={<Checkbox value="remember" color="primary" />}
               label="Remember me"
+              className={classes.rememberMe}
             />
             <Button
               type="submit"
-              fullWidth
               variant="contained"
               color="primary"
               className={classes.submit}
@@ -115,12 +137,16 @@ export default function Login() {
             </Button>
             <Grid container>
               <Grid item xs>
-                <Link href="#" variant="body2">
+                <Link href="#" variant="body2" className={classes.rememberMe}>
                   Forgot password?
                 </Link>
               </Grid>
               <Grid item>
-                <Link href="#" variant="body2">
+                <Link
+                  href="/sign-up"
+                  variant="body2"
+                  className={classes.signUp}
+                >
                   {"Don't have an account? Sign Up"}
                 </Link>
               </Grid>
