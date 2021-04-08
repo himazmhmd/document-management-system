@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
@@ -11,19 +11,8 @@ import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
-
-function Copyright() {
-  return (
-    <Typography variant="body2" color="textSecondary" align="center">
-      {"Copyright © "}
-      <Link color="inherit" href="https://material-ui.com/">
-        Your Website
-      </Link>{" "}
-      {new Date().getFullYear()}
-      {"."}
-    </Typography>
-  );
-}
+import { InputLabel, MenuItem, Select, FormControl } from "@material-ui/core";
+import CopyRight from "./CopyRights";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -34,19 +23,37 @@ const useStyles = makeStyles((theme) => ({
   },
   avatar: {
     margin: theme.spacing(1),
-    backgroundColor: theme.palette.secondary.main,
+    backgroundColor: theme.palette.primary.main,
   },
   form: {
     width: "100%", // Fix IE 11 issue.
     marginTop: theme.spacing(3),
   },
   submit: {
-    margin: theme.spacing(3, 0, 2),
+    margin: theme.spacing(2, 0, 2),
+    width: "150px",
+    float: "right",
+  },
+  label: {
+    margin: theme.spacing(2, 2, 2),
   },
 }));
 
 export default function SignUp() {
   const classes = useStyles();
+
+  const [values, setValues] = useState({
+    firstName: "",
+    lastName: "",
+    empNo: "",
+    faculty: "1",
+    email: "",
+    password: "",
+    ConfirmPassword: "",
+  });
+
+  const handleChange = (e) =>
+    setValues({ ...values, [e.target.name]: e.target.value });
 
   return (
     <Container component="main" maxWidth="xs">
@@ -69,6 +76,8 @@ export default function SignUp() {
                 id="firstName"
                 label="First Name"
                 autoFocus
+                size="small"
+                onChange={handleChange}
               />
             </Grid>
             <Grid item xs={12} sm={6}>
@@ -80,8 +89,36 @@ export default function SignUp() {
                 label="Last Name"
                 name="lastName"
                 autoComplete="lname"
+                size="small"
+                onChange={handleChange}
               />
             </Grid>
+            <Grid item xs={12}>
+              <TextField
+                variant="outlined"
+                required
+                fullWidth
+                name="empNo"
+                label="EmpNo"
+                type="text"
+                id="EmpNo"
+                size="small"
+                onChange={handleChange}
+              />
+            </Grid>
+            <InputLabel id="label" className={classes.label}>
+              Faculty :
+            </InputLabel>
+            <Select
+              onChange={handleChange}
+              name="faculty"
+              value={values.faculty}
+            >
+              <MenuItem value="1">Faculty Of Science</MenuItem>
+              <MenuItem value="2">Faculty Of Management</MenuItem>
+              <MenuItem value="3">Faculty Of Medicine</MenuItem>
+              <MenuItem value="4">Faculty Of Allied Health Science</MenuItem>
+            </Select>
             <Grid item xs={12}>
               <TextField
                 variant="outlined"
@@ -91,6 +128,8 @@ export default function SignUp() {
                 label="Email Address"
                 name="email"
                 autoComplete="email"
+                size="small"
+                onChange={handleChange}
               />
             </Grid>
             <Grid item xs={12}>
@@ -103,12 +142,21 @@ export default function SignUp() {
                 type="password"
                 id="password"
                 autoComplete="current-password"
+                size="small"
+                onChange={handleChange}
               />
             </Grid>
             <Grid item xs={12}>
-              <FormControlLabel
-                control={<Checkbox value="allowExtraEmails" color="primary" />}
-                label="I want to receive inspiration, marketing promotions and updates via email."
+              <TextField
+                variant="outlined"
+                required
+                fullWidth
+                name="confirmPassword"
+                label="ConfirmPassword"
+                type="ConfirmPassword"
+                id="ConfirmPassword"
+                size="small"
+                onChange={handleChange}
               />
             </Grid>
           </Grid>
@@ -118,20 +166,21 @@ export default function SignUp() {
             variant="contained"
             color="primary"
             className={classes.submit}
+            size="small"
           >
             Sign Up
           </Button>
           <Grid container justify="flex-end">
             <Grid item>
-              <Link href="#" variant="body2">
-                Already have an account? Sign in
+              <Link href="#" variant="body2" color="secondary">
+                Already have an account? Log in
               </Link>
             </Grid>
           </Grid>
         </form>
       </div>
       <Box mt={5}>
-        <Copyright />
+        <CopyRight />
       </Box>
     </Container>
   );
