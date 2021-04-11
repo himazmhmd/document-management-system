@@ -16,7 +16,8 @@ import NotificationsIcon from "@material-ui/icons/Notifications";
 import MoreIcon from "@material-ui/icons/MoreVert";
 import HomeIcon from "@material-ui/icons/Home";
 import logo from "../svg/UoJ_logo.png";
-import { Avatar } from "@material-ui/core";
+import { Avatar, Button } from "@material-ui/core";
+import { Link } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
   grow: {
@@ -120,6 +121,7 @@ export default function Header() {
     >
       <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
       <MenuItem onClick={handleMenuClose}>My account</MenuItem>
+      <MenuItem onClick={handleMenuClose}>Settings</MenuItem>
     </Menu>
   );
 
@@ -190,14 +192,15 @@ export default function Header() {
           <div className={classes.grow} />
           <div className={classes.sectionDesktop}>
             <IconButton color="inherit">
-              <Badge color="secondary">
-                <HomeIcon />
-              </Badge>
+              <Button color="inherit">Home</Button>
             </IconButton>
             <IconButton aria-label="show 17 new notifications" color="inherit">
               <Badge badgeContent={17} color="secondary">
-                <NotificationsIcon />
+                <Button color="inherit">Notifications</Button>
               </Badge>
+            </IconButton>
+            <IconButton aria-label="show 17 new notifications" color="inherit">
+              <Button color="inherit">Report</Button>
             </IconButton>
             <IconButton
               edge="end"

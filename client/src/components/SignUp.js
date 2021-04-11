@@ -106,6 +106,7 @@ export default function SignUp() {
                 onChange={handleChange}
               />
             </Grid>
+
             <InputLabel id="label" className={classes.label}>
               Faculty :
             </InputLabel>
