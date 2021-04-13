@@ -6,6 +6,7 @@ import theme from "./utils/theme";
 import Header from "./components/Header";
 import SignUp from "./components/SignUp";
 import Home from "./components/Home";
+import Leave from "./components/Leave";
 
 const App = () => {
   return (
@@ -15,6 +16,8 @@ const App = () => {
         <Route path="/sign-up" component={SignUp} />
         <Route path="/header" component={Header} />
         <Route path="/home" component={Home} />
+
+        <Route path="/leave" component={Leave} />
       </Switch>
     </MuiThemeProvider>
   );
