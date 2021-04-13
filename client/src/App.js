@@ -7,6 +7,7 @@ import Header from "./components/Header";
 import SignUp from "./components/SignUp";
 import Home from "./components/Home";
 import Leave from "./components/Leave";
+import NonAcademicDutyLeave from "./components/nonAcademicDutyLeave";
 
 const App = () => {
   return (
@@ -16,7 +17,10 @@ const App = () => {
         <Route path="/sign-up" component={SignUp} />
         <Route path="/header" component={Header} />
         <Route path="/home" component={Home} />
-
+        <Route
+          path="/non-academic-duty-leave"
+          component={NonAcademicDutyLeave}
+        />
         <Route path="/leave" component={Leave} />
       </Switch>
     </MuiThemeProvider>
