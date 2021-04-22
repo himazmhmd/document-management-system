@@ -50,7 +50,7 @@ const useStyles = makeStyles((theme) => ({
     marginLeft: theme.spacing(1),
   },
   textField: {
-    width: "100%",
+    width: "80%",
     margin: theme.spacing(3, 1.5, 3),
   },
   label: {
@@ -130,16 +130,16 @@ export default function Leave() {
                   <label className={classes.label}>
                     Date Of First Appointment / முதல் நியமன திகதி
                   </label>
+                </Grid>
+
+                <Grid xs={12}>
                   <TextField
-                    xs={12}
                     id="date"
                     type="date"
                     defaultValue="2017-05-24"
                     className={classes.textField}
-                    fullWidth
                   />
                 </Grid>
-
                 <Typography variant="h6" gutterBottom className={classes.head1}>
                   Leaves Already Taken / ஏற்கனவெ எடுக்கப்பட்ட லீவுகள்
                 </Typography>
@@ -149,7 +149,7 @@ export default function Leave() {
                   </Typography>
                 </Grid>
 
-                <Grid item xs={6} sm={3}>
+                <Grid item xs={3} sm={3}>
                   <TextField
                     required
                     id="noOfSickLeavesLast"
@@ -159,7 +159,7 @@ export default function Leave() {
                     autoComplete="given-name"
                   />
                 </Grid>
-                <Grid item xs={6} sm={3}>
+                <Grid item xs={3} sm={3}>
                   <TextField
                     required
                     id="noOfSickLeavesThis"
@@ -176,7 +176,7 @@ export default function Leave() {
                   </Typography>
                 </Grid>
 
-                <Grid item xs={6} sm={3}>
+                <Grid item xs={3} sm={3}>
                   <TextField
                     required
                     id="noOfVacationLast"
@@ -186,7 +186,7 @@ export default function Leave() {
                     autoComplete="given-name"
                   />
                 </Grid>
-                <Grid item xs={6} sm={3}>
+                <Grid item xs={3} sm={3}>
                   <TextField
                     required
                     id="noOfVacationThis"
@@ -203,7 +203,7 @@ export default function Leave() {
                   </Typography>
                 </Grid>
 
-                <Grid item xs={6} sm={3}>
+                <Grid item xs={3} sm={3}>
                   <TextField
                     required
                     id="noOfCasualLeavesLast"
@@ -213,7 +213,7 @@ export default function Leave() {
                     autoComplete="given-name"
                   />
                 </Grid>
-                <Grid item xs={6} sm={3}>
+                <Grid item xs={3} sm={3}>
                   <TextField
                     required
                     id="noOfCasualLeavesThis"
@@ -230,7 +230,7 @@ export default function Leave() {
                   </Typography>
                 </Grid>
 
-                <Grid item xs={6} sm={3}>
+                <Grid item xs={3} sm={3}>
                   <TextField
                     required
                     id="noOfHalfPayLeavesLast"
@@ -240,7 +240,7 @@ export default function Leave() {
                     autoComplete="given-name"
                   />
                 </Grid>
-                <Grid item xs={6} sm={3}>
+                <Grid item xs={3} sm={3}>
                   <TextField
                     required
                     id="noOfHalfPayLeavesThis"
@@ -257,7 +257,7 @@ export default function Leave() {
                   </Typography>
                 </Grid>
 
-                <Grid item xs={6} sm={3}>
+                <Grid item xs={3} sm={3}>
                   <TextField
                     required
                     id="noOfNoPayLeavesLast"
@@ -267,7 +267,7 @@ export default function Leave() {
                     autoComplete="given-name"
                   />
                 </Grid>
-                <Grid item xs={6} sm={3}>
+                <Grid item xs={3} sm={3}>
                   <TextField
                     required
                     id="noOfNoPayLeavesThis"

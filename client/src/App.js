@@ -7,7 +7,10 @@ import Header from "./components/Header";
 import SignUp from "./components/SignUp";
 import Home from "./components/Home";
 import Leave from "./components/Leave";
-import NonAcademicDutyLeave from "./components/nonAcademicDutyLeave";
+import NonAcademicDutyLeave from "./components/NonAcademicDutyLeave";
+import TravelClaim from "./components/TravelClaim";
+import Profile from "./components/Profile";
+import EditProfile from "./components/EditProfile";
 
 const App = () => {
   return (
@@ -21,7 +24,10 @@ const App = () => {
           path="/non-academic-duty-leave"
           component={NonAcademicDutyLeave}
         />
+        <Route path="/travel-claim" component={TravelClaim} />
         <Route path="/leave" component={Leave} />
+        <Route path="/profile" component={Profile} />
+        <Route path="/edit-profile" component={EditProfile} />
       </Switch>
     </MuiThemeProvider>
   );
