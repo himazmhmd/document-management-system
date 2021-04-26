@@ -1,26 +1,13 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import CssBaseline from "@material-ui/core/CssBaseline";
-import AppBar from "@material-ui/core/AppBar";
-import Toolbar from "@material-ui/core/Toolbar";
 import Paper from "@material-ui/core/Paper";
-import Stepper from "@material-ui/core/Stepper";
-import Step from "@material-ui/core/Step";
-import StepLabel from "@material-ui/core/StepLabel";
 import Button from "@material-ui/core/Button";
-import Link from "@material-ui/core/Link";
 import Typography from "@material-ui/core/Typography";
 import Header from "./Header";
 import Copyright from "./CopyRights";
-import {
-  Avatar,
-  Box,
-  Checkbox,
-  FormControlLabel,
-  Grid,
-  TextField,
-} from "@material-ui/core";
-import CloudUploadIcon from "@material-ui/icons/CloudUpload";
+import PhotoCameraIcon from "@material-ui/icons/PhotoCamera";
+import { Avatar, Box, Grid, IconButton } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
   appBar: {
@@ -103,9 +90,6 @@ const useStyles = makeStyles((theme) => ({
     borderRadius: "10px",
     paddingBottom: "5px",
   },
-  button: {
-    margin: theme.spacing(2, 2, 1),
-  },
 }));
 
 export default function Profile() {
@@ -123,24 +107,10 @@ export default function Profile() {
   };
   const classes = useStyles();
   const [activeStep, setActiveStep] = React.useState(0);
-  const [state, setState] = React.useState({
-    traveling: true,
-    subsistence: false,
-  });
+
   const handleNext = () => {
     setActiveStep(activeStep + 1);
   };
-
-  const handleBack = () => {
-    setActiveStep(activeStep - 1);
-  };
-  const handleChange = (event) => {
-    setState({ ...state, [event.target.name]: event.target.checked });
-  };
-
-  const { traveling, subsistence } = state;
-  const error = [traveling, subsistence].filter((v) => v).length !== 2;
-
   return (
     <React.Fragment>
       <CssBaseline />
@@ -170,12 +140,26 @@ export default function Profile() {
                   direction="row"
                   justify="center"
                   alignItems="center"
+                  style={{ position: "relative" }}
                 >
                   <Avatar
                     alt="Remy Sharp"
                     src="/static/images/avatar/1.jpg"
                     className={classes.avatar}
                   />
+                  <IconButton
+                    color="primary"
+                    aria-label="upload picture"
+                    component="span"
+                    style={{
+                      position: "absolute",
+                      bottom: "25px",
+                      right: "32%",
+                      backgroundColor: "#eceff1",
+                    }}
+                  >
+                    <PhotoCameraIcon />
+                  </IconButton>
                 </Grid>
                 <Grid
                   item

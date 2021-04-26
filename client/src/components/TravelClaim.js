@@ -1,16 +1,9 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import CssBaseline from "@material-ui/core/CssBaseline";
-import AppBar from "@material-ui/core/AppBar";
-import Toolbar from "@material-ui/core/Toolbar";
 import Paper from "@material-ui/core/Paper";
-import Stepper from "@material-ui/core/Stepper";
-import Step from "@material-ui/core/Step";
-import StepLabel from "@material-ui/core/StepLabel";
 import Button from "@material-ui/core/Button";
-import Link from "@material-ui/core/Link";
 import Typography from "@material-ui/core/Typography";
-import Header from "./Header";
 import Copyright from "./CopyRights";
 import { Checkbox, FormControlLabel, Grid, TextField } from "@material-ui/core";
 import CloudUploadIcon from "@material-ui/icons/CloudUpload";
@@ -98,15 +91,11 @@ export default function TravelClaim() {
     setActiveStep(activeStep + 1);
   };
 
-  const handleBack = () => {
-    setActiveStep(activeStep - 1);
-  };
   const handleChange = (event) => {
     setState({ ...state, [event.target.name]: event.target.checked });
   };
 
   const { traveling, subsistence } = state;
-  const error = [traveling, subsistence].filter((v) => v).length !== 2;
 
   return (
     <React.Fragment>

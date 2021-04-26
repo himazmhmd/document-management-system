@@ -1,19 +1,12 @@
 import React from "react";
-import AppBar from "@material-ui/core/AppBar";
 import Button from "@material-ui/core/Button";
-import CameraIcon from "@material-ui/icons/PhotoCamera";
 import Card from "@material-ui/core/Card";
-import CardActions from "@material-ui/core/CardActions";
 import CardContent from "@material-ui/core/CardContent";
-import CardMedia from "@material-ui/core/CardMedia";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import Grid from "@material-ui/core/Grid";
-import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
-import Link from "@material-ui/core/Link";
-import CopyRight from "./CopyRights";
 import Header from "./Header";
 
 const useStyles = makeStyles((theme) => ({
@@ -39,11 +32,11 @@ const useStyles = makeStyles((theme) => ({
   },
   cardContent: {
     flexGrow: 1,
-    backgroundColor: "#b2ebf2",
+    backgroundColor: "#eceff1",
   },
   cardContent1: {
     flexGrow: 1,
-    backgroundColor: "#b2ebf2",
+    backgroundColor: "#eceff1",
     height: "190px",
     width: "100%",
     borderRadius: "10px",

@@ -2,8 +2,6 @@ import React, { useState } from "react";
 import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
-import Checkbox from "@material-ui/core/Checkbox";
 import Link from "@material-ui/core/Link";
 import Grid from "@material-ui/core/Grid";
 import Box from "@material-ui/core/Box";
@@ -11,8 +9,10 @@ import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
-import { InputLabel, MenuItem, Select, FormControl } from "@material-ui/core";
+import { InputLabel, MenuItem, Select } from "@material-ui/core";
 import CopyRight from "./CopyRights";
+
+import axios from "axios";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -36,6 +36,11 @@ const useStyles = makeStyles((theme) => ({
   },
   label: {
     margin: theme.spacing(2, 2, 2),
+    width: "30%",
+  },
+  textField: {
+    width: "95%",
+    margin: theme.spacing(3, 1.5, 3),
   },
 }));
 
@@ -45,15 +50,29 @@ export default function SignUp() {
   const [values, setValues] = useState({
     firstName: "",
     lastName: "",
-    empNo: "",
+    empId: "",
     faculty: "1",
+    type: "1",
     email: "",
+    dateOfBirth: new Date(),
+    address: "",
+    gender: "1",
     password: "",
     ConfirmPassword: "",
+    fullName: "",
+    phoneNo: "",
   });
 
   const handleChange = (e) =>
     setValues({ ...values, [e.target.name]: e.target.value });
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    axios
+      .post("http://localhost:5000/user/sign-up", values)
+      .then((res) => console.log(res))
+      .catch((error) => console.log(error));
+  };
 
   return (
     <Container component="main" maxWidth="xs">
@@ -64,7 +83,12 @@ export default function SignUp() {
         <Typography component="h1" variant="h5">
           Sign up
         </Typography>
-        <form className={classes.form} noValidate>
+        <form
+          className={classes.form}
+          method="POST"
+          onSubmit={handleSubmit}
+          noValidate
+        >
           <Grid container spacing={2}>
             <Grid item xs={12} sm={6}>
               <TextField
@@ -98,7 +122,20 @@ export default function SignUp() {
                 variant="outlined"
                 required
                 fullWidth
-                name="empNo"
+                id="fullName"
+                label="Full Name"
+                name="fullName"
+                autoComplete="fullName"
+                size="small"
+                onChange={handleChange}
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <TextField
+                variant="outlined"
+                required
+                fullWidth
+                name="empId"
                 label="EmpNo"
                 type="text"
                 id="EmpNo"
@@ -120,6 +157,20 @@ export default function SignUp() {
               <MenuItem value="3">Faculty Of Medicine</MenuItem>
               <MenuItem value="4">Faculty Of Allied Health Science</MenuItem>
             </Select>
+
+            <InputLabel id="label" className={classes.label}>
+              Employee Type :
+            </InputLabel>
+            <Select onChange={handleChange} name="type" value={values.type}>
+              <MenuItem value="1">Vice Chancellor</MenuItem>
+              <MenuItem value="2">Assistant Registrat</MenuItem>
+              <MenuItem value="3">Dean</MenuItem>
+              <MenuItem value="4">Bursar</MenuItem>
+              <MenuItem value="5">Academic Staff</MenuItem>
+              <MenuItem value="6">Non-Academic Staff</MenuItem>
+              <MenuItem value="7">Academic Support</MenuItem>
+              <MenuItem value="8">On-Contract Staff</MenuItem>
+            </Select>
             <Grid item xs={12}>
               <TextField
                 variant="outlined"
@@ -131,8 +182,56 @@ export default function SignUp() {
                 autoComplete="email"
                 size="small"
                 onChange={handleChange}
+                value={values.email}
               />
             </Grid>
+            <Grid xs={12}>
+              <TextField
+                id="dateOfBirth"
+                name="dateOfBirth"
+                type="date"
+                value={values.dateOfBirth}
+                className={classes.textField}
+                onChange={handleChange}
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <TextField
+                variant="outlined"
+                required
+                fullWidth
+                id="address"
+                label="Residential Address"
+                name="address"
+                autoComplete="address"
+                size="small"
+                value={values.address}
+                onChange={handleChange}
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <TextField
+                variant="outlined"
+                required
+                fullWidth
+                id="phoneNo"
+                label="Phone Number"
+                name="phoneNo"
+                autoComplete="phoneNo"
+                size="small"
+                value={values.phoneNo}
+                onChange={handleChange}
+              />
+            </Grid>
+            <InputLabel id="label" className={classes.label}>
+              Gender :
+            </InputLabel>
+            <Select onChange={handleChange} name="gender" value={values.gender}>
+              <MenuItem value="1">Male</MenuItem>
+              <MenuItem value="2">Female</MenuItem>
+              <MenuItem value="3">Others</MenuItem>
+            </Select>
+
             <Grid item xs={12}>
               <TextField
                 variant="outlined"
@@ -154,7 +253,7 @@ export default function SignUp() {
                 fullWidth
                 name="confirmPassword"
                 label="ConfirmPassword"
-                type="ConfirmPassword"
+                type="password"
                 id="ConfirmPassword"
                 size="small"
                 onChange={handleChange}

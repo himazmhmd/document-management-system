@@ -11,6 +11,7 @@ import NonAcademicDutyLeave from "./components/NonAcademicDutyLeave";
 import TravelClaim from "./components/TravelClaim";
 import Profile from "./components/Profile";
 import EditProfile from "./components/EditProfile";
+import Notification from "./components/Notification";
 
 const App = () => {
   return (
@@ -28,6 +29,8 @@ const App = () => {
         <Route path="/leave" component={Leave} />
         <Route path="/profile" component={Profile} />
         <Route path="/edit-profile" component={EditProfile} />
+
+        <Route path="/notification" component={Notification} />
       </Switch>
     </MuiThemeProvider>
   );
