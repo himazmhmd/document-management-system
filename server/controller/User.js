@@ -20,9 +20,20 @@ export const deleteUser = async (req, res) => {
   }
 };
 
+//@route GET /user/:id
 export const getUser = async (req, res) => {
   try {
     const user = await User.findById(req.params.id);
+    res.status(200).json({ msg: `SUCCESS.`, user });
+  } catch (err) {
+    res.status(400).json({ msg: `ERROR: ${err}` });
+    console.log(err);
+  }
+};
+
+export const getUsers = async (req, res) => {
+  try {
+    const user = await User.find();
     res.status(200).json({ msg: `SUCCESS.`, user });
   } catch (err) {
     res.status(400).json({ msg: `ERROR: ${err}` });
@@ -41,6 +52,7 @@ export const updateUser = async (req, res) => {
       },
       { new: true }
     );
+    console.log(user);
     res.status(200).json({ msg: `Succesfully updated user.`, user });
   } catch (err) {
     res.status(400).json({ msg: `ERROR: ${err}` });

@@ -51,12 +51,12 @@ export default function SignUp() {
     firstName: "",
     lastName: "",
     empId: "",
-    faculty: "1",
-    type: "1",
+    faculty: "Faculty Of Science",
+    type: "Vice Chancellor",
     email: "",
     dateOfBirth: new Date(),
     address: "",
-    gender: "1",
+    gender: "Male",
     password: "",
     ConfirmPassword: "",
     fullName: "",
@@ -152,24 +152,32 @@ export default function SignUp() {
               name="faculty"
               value={values.faculty}
             >
-              <MenuItem value="1">Faculty Of Science</MenuItem>
-              <MenuItem value="2">Faculty Of Management</MenuItem>
-              <MenuItem value="3">Faculty Of Medicine</MenuItem>
-              <MenuItem value="4">Faculty Of Allied Health Science</MenuItem>
+              <MenuItem value="Faculty Of Science">Faculty Of Science</MenuItem>
+              <MenuItem value="Faculty Of Management">
+                Faculty Of Management
+              </MenuItem>
+              <MenuItem value="Faculty Of Medicine">
+                Faculty Of Medicine
+              </MenuItem>
+              <MenuItem value="Faculty Of Allied Health Science">
+                Faculty Of Allied Health Science
+              </MenuItem>
             </Select>
 
             <InputLabel id="label" className={classes.label}>
               Employee Type :
             </InputLabel>
             <Select onChange={handleChange} name="type" value={values.type}>
-              <MenuItem value="1">Vice Chancellor</MenuItem>
-              <MenuItem value="2">Assistant Registrat</MenuItem>
-              <MenuItem value="3">Dean</MenuItem>
-              <MenuItem value="4">Bursar</MenuItem>
-              <MenuItem value="5">Academic Staff</MenuItem>
-              <MenuItem value="6">Non-Academic Staff</MenuItem>
-              <MenuItem value="7">Academic Support</MenuItem>
-              <MenuItem value="8">On-Contract Staff</MenuItem>
+              <MenuItem value="Vice Chancellor">Vice Chancellor</MenuItem>
+              <MenuItem value="Assistant Registrat">
+                Assistant Registrat
+              </MenuItem>
+              <MenuItem value="Dean">Dean</MenuItem>
+              <MenuItem value="Bursar">Bursar</MenuItem>
+              <MenuItem value="Academic Staff">Academic Staff</MenuItem>
+              <MenuItem value="Non-Academic Staff">Non-Academic Staff</MenuItem>
+              <MenuItem value="Academic Support">Academic Support</MenuItem>
+              <MenuItem value="On-Contract Staff">On-Contract Staff</MenuItem>
             </Select>
             <Grid item xs={12}>
               <TextField
@@ -227,9 +235,9 @@ export default function SignUp() {
               Gender :
             </InputLabel>
             <Select onChange={handleChange} name="gender" value={values.gender}>
-              <MenuItem value="1">Male</MenuItem>
-              <MenuItem value="2">Female</MenuItem>
-              <MenuItem value="3">Others</MenuItem>
+              <MenuItem value="Male">Male</MenuItem>
+              <MenuItem value="Female">Female</MenuItem>
+              <MenuItem value="Others">Others</MenuItem>
             </Select>
 
             <Grid item xs={12}>

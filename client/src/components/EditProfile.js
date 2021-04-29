@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import Paper from "@material-ui/core/Paper";
@@ -8,15 +8,8 @@ import Typography from "@material-ui/core/Typography";
 import Header from "./Header";
 import Copyright from "./CopyRights";
 import PhotoCameraIcon from "@material-ui/icons/PhotoCamera";
-import {
-  Avatar,
-  Box,
-  Grid,
-  IconButton,
-  MenuItem,
-  Select,
-  TextField,
-} from "@material-ui/core";
+import { Avatar, Box, Grid, IconButton, TextField } from "@material-ui/core";
+import axios from "axios";
 
 const useStyles = makeStyles((theme) => ({
   appBar: {
@@ -106,7 +99,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function EditProfile() {
+export default function EditProfile(props) {
   const defaultProps = {
     bgcolor: "background.paper",
     style: {
@@ -119,20 +112,38 @@ export default function EditProfile() {
       paddingLeft: "10px",
     },
   };
+  const { match } = props;
+  const [values, setValues] = useState({
+    faculty: "",
+    type: "",
+    email: "",
+    dateOfBirth: new Date(),
+    address: "",
+    gender: "",
+    phoneNo: "",
+  });
+  useEffect(() => {
+    axios
+      .get(`/user/${match.params.id}`)
+      .then(({ data }) => setValues(data.user));
+  }, []);
+
   const classes = useStyles();
   const [activeStep, setActiveStep] = React.useState(0);
   const handleNext = () => {
     setActiveStep(activeStep + 1);
   };
 
-  const [values, setValues] = useState({
-    empType: "1",
-    faculty: "1",
-    gender: "1",
-  });
-
   const handleChange = (e) =>
     setValues({ ...values, [e.target.name]: e.target.value });
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    axios
+      .put(`/user/${match.params.id}`, values)
+      .then((res) => console.log(res))
+      .catch((error) => console.log(error));
+  };
 
   return (
     <React.Fragment>
@@ -143,227 +154,255 @@ export default function EditProfile() {
         <Paper className={classes.paper}>
           <React.Fragment>
             <React.Fragment>
-              <Grid className={classes.profilePhoto}>
-                <Grid>
+              <form
+                className={classes.form}
+                method="put"
+                onSubmit={handleSubmit}
+                noValidate
+              >
+                <Grid className={classes.profilePhoto}>
+                  <Grid>
+                    <Button
+                      color="primary"
+                      onClick={handleNext}
+                      className={classes.button}
+                    >
+                      <KeyboardBackspaceIcon />
+                    </Button>
+                  </Grid>
+                  <Grid
+                    item
+                    xs={12}
+                    container
+                    direction="row"
+                    justify="center"
+                    alignItems="center"
+                    style={{ position: "relative" }}
+                  >
+                    <Avatar
+                      alt="Remy Sharp"
+                      src="/static/images/avatar/1.jpg"
+                      className={classes.avatar}
+                    />
+                    <IconButton
+                      color="primary"
+                      aria-label="upload picture"
+                      component="span"
+                      style={{
+                        position: "absolute",
+                        bottom: "25px",
+                        right: "32%",
+                        backgroundColor: "#eceff1",
+                      }}
+                    >
+                      <PhotoCameraIcon />
+                    </IconButton>
+                  </Grid>
+                  <Grid
+                    item
+                    xs={12}
+                    container
+                    direction="row"
+                    justify="center"
+                    alignItems="center"
+                  >
+                    <Typography variant="h6">
+                      {values.firstName} {values.lastName}
+                    </Typography>
+                  </Grid>
+                </Grid>
+
+                <Grid container spacing={3}>
+                  <Grid item xs={3} sm={4}>
+                    Full Name
+                  </Grid>
+                  <Grid item xs={7} sm={8} border="1px">
+                    <Box
+                      borderRadius="borderRadius"
+                      {...defaultProps}
+                      fullWidth
+                    >
+                      {values.fullName}
+                    </Box>
+                  </Grid>
+
+                  <Grid item xs={3} sm={4}>
+                    Employee ID
+                  </Grid>
+                  <Grid item xs={7} sm={8} border="1px">
+                    <Box
+                      borderRadius="borderRadius"
+                      {...defaultProps}
+                      fullWidth
+                    >
+                      {values.empId}
+                    </Box>
+                  </Grid>
+
+                  <Grid item xs={3} sm={4}>
+                    Employee Type
+                  </Grid>
+                  <Grid item xs={7} sm={8} border="1px">
+                    <Box
+                      borderRadius="borderRadius"
+                      {...defaultProps}
+                      fullWidth
+                    >
+                      <TextField
+                        required
+                        fullWidth
+                        name="type"
+                        value={values.type}
+                        type="text"
+                        id="type"
+                        size="small"
+                        onChange={handleChange}
+                      />
+                    </Box>
+                  </Grid>
+
+                  <Grid item xs={3} sm={4}>
+                    Faculty
+                  </Grid>
+                  <Grid item xs={7} sm={8} border="1px">
+                    <Box
+                      borderRadius="borderRadius"
+                      {...defaultProps}
+                      fullWidth
+                    >
+                      <TextField
+                        required
+                        fullWidth
+                        name="faculty"
+                        value={values.faculty}
+                        type="text"
+                        id="faculty"
+                        size="small"
+                        onChange={handleChange}
+                      />
+                    </Box>
+                  </Grid>
+
+                  <Grid item xs={3} sm={4}>
+                    E-Mail
+                  </Grid>
+                  <Grid item xs={7} sm={8} border="1px">
+                    <Box
+                      borderRadius="borderRadius"
+                      {...defaultProps}
+                      fullWidth
+                    >
+                      <TextField
+                        required
+                        fullWidth
+                        name="email"
+                        value={values.email}
+                        type="email"
+                        id="email"
+                        size="small"
+                        onChange={handleChange}
+                      />
+                    </Box>
+                  </Grid>
+
+                  <Grid item xs={3} sm={4}>
+                    Phone Number
+                  </Grid>
+                  <Grid item xs={7} sm={8} border="1px">
+                    <Box
+                      borderRadius="borderRadius"
+                      {...defaultProps}
+                      fullWidth
+                    >
+                      <TextField
+                        required
+                        fullWidth
+                        name="phoneNo"
+                        type="text"
+                        id="phoneNo"
+                        size="small"
+                        onChange={handleChange}
+                        value={values.phoneNo}
+                      />
+                    </Box>
+                  </Grid>
+
+                  <Grid item xs={3} sm={4}>
+                    Address
+                  </Grid>
+                  <Grid item xs={7} sm={8} border="1px">
+                    <Box
+                      borderRadius="borderRadius"
+                      {...defaultProps}
+                      fullWidth
+                    >
+                      <TextField
+                        required
+                        fullWidth
+                        name="address"
+                        type="text"
+                        id="address"
+                        size="small"
+                        value={values.address}
+                        onChange={handleChange}
+                      />
+                    </Box>
+                  </Grid>
+
+                  <Grid item xs={3} sm={4}>
+                    Gender
+                  </Grid>
+                  <Grid item xs={7} sm={8} border="1px">
+                    <Box
+                      borderRadius="borderRadius"
+                      {...defaultProps}
+                      fullWidth
+                    >
+                      <TextField
+                        required
+                        fullWidth
+                        name="gender"
+                        value={values.gender}
+                        type="text"
+                        id="gender"
+                        size="small"
+                        onChange={handleChange}
+                      />
+                    </Box>
+                  </Grid>
+
+                  <Grid item xs={3} sm={4}>
+                    Date Of Birth
+                  </Grid>
+                  <Grid item xs={7} sm={8} border="1px">
+                    <Box
+                      borderRadius="borderRadius"
+                      {...defaultProps}
+                      fullWidth
+                    >
+                      <TextField
+                        xs={12}
+                        name="dateOfBirth"
+                        id="dateOfBirth"
+                        type="date"
+                        value={values.dateOfBirth}
+                        fullWidth
+                        onChange={handleChange}
+                      />
+                    </Box>
+                  </Grid>
+                </Grid>
+                <div className={classes.buttons}>
                   <Button
+                    type="submit"
+                    variant="contained"
                     color="primary"
-                    onClick={handleNext}
                     className={classes.button}
                   >
-                    <KeyboardBackspaceIcon />
+                    Submit
                   </Button>
-                </Grid>
-                <Grid
-                  item
-                  xs={12}
-                  container
-                  direction="row"
-                  justify="center"
-                  alignItems="center"
-                  style={{ position: "relative" }}
-                >
-                  <Avatar
-                    alt="Remy Sharp"
-                    src="/static/images/avatar/1.jpg"
-                    className={classes.avatar}
-                  />
-                  <IconButton
-                    color="primary"
-                    aria-label="upload picture"
-                    component="span"
-                    style={{
-                      position: "absolute",
-                      bottom: "25px",
-                      right: "32%",
-                      backgroundColor: "#eceff1",
-                    }}
-                  >
-                    <PhotoCameraIcon />
-                  </IconButton>
-                </Grid>
-                <Grid
-                  item
-                  xs={12}
-                  container
-                  direction="row"
-                  justify="center"
-                  alignItems="center"
-                >
-                  <Typography variant="h6">Dr.M.H.M.Himaz</Typography>
-                </Grid>
-                <Grid
-                  item
-                  xs={12}
-                  container
-                  direction="row"
-                  justify="center"
-                  alignItems="center"
-                >
-                  <Typography>Senior Lecturer</Typography>
-                </Grid>
-              </Grid>
-
-              <Grid container spacing={3}>
-                <Grid item xs={3} sm={4}>
-                  Full Name
-                </Grid>
-                <Grid item xs={7} sm={8} border="1px">
-                  <Box borderRadius="borderRadius" {...defaultProps} fullWidth>
-                    Mohammed Hilmy Mohammed Himaz
-                  </Box>
-                </Grid>
-
-                <Grid item xs={3} sm={4}>
-                  Employee ID
-                </Grid>
-                <Grid item xs={7} sm={8} border="1px">
-                  <Box borderRadius="borderRadius" {...defaultProps} fullWidth>
-                    emp-102
-                  </Box>
-                </Grid>
-
-                <Grid item xs={3} sm={4}>
-                  Employee Type
-                </Grid>
-                <Grid item xs={7} sm={8} border="1px">
-                  <Box borderRadius="borderRadius" {...defaultProps} fullWidth>
-                    <Select
-                      onChange={handleChange}
-                      name="empType"
-                      value={values.empType}
-                      size="small"
-                    >
-                      <MenuItem value="1">Vice-Chancellor</MenuItem>
-                      <MenuItem value="2">Assistant Registrat</MenuItem>
-                      <MenuItem value="3">Bursar</MenuItem>
-                      <MenuItem value="4">Dean</MenuItem>
-                      <MenuItem value="5">Head Of The Department</MenuItem>
-                      <MenuItem value="6">Acedamic Staff</MenuItem>
-                      <MenuItem value="7">Non-Acedamic Staff</MenuItem>
-                      <MenuItem value="8">Acedamic Support</MenuItem>
-                      <MenuItem value="9">On Contract</MenuItem>
-                    </Select>
-                  </Box>
-                </Grid>
-
-                <Grid item xs={3} sm={4}>
-                  Faculty
-                </Grid>
-                <Grid item xs={7} sm={8} border="1px">
-                  <Box borderRadius="borderRadius" {...defaultProps} fullWidth>
-                    <Select
-                      onChange={handleChange}
-                      name="faculty"
-                      value={values.faculty}
-                    >
-                      <MenuItem value="1">Faculty Of Science</MenuItem>
-                      <MenuItem value="2">Faculty Of Management</MenuItem>
-                      <MenuItem value="3">Faculty Of Medicine</MenuItem>
-                      <MenuItem value="4">
-                        Faculty Of Allied Health Science
-                      </MenuItem>
-                    </Select>
-                  </Box>
-                </Grid>
-
-                <Grid item xs={3} sm={4}>
-                  E-Mail
-                </Grid>
-                <Grid item xs={7} sm={8} border="1px">
-                  <Box borderRadius="borderRadius" {...defaultProps} fullWidth>
-                    <TextField
-                      required
-                      fullWidth
-                      name="empNo"
-                      type="text"
-                      id="EmpNo"
-                      size="small"
-                      defaultValue="himazmhmd@gmail.com"
-                      onChange={handleChange}
-                    />
-                  </Box>
-                </Grid>
-
-                <Grid item xs={3} sm={4}>
-                  Phone Number
-                </Grid>
-                <Grid item xs={7} sm={8} border="1px">
-                  <Box borderRadius="borderRadius" {...defaultProps} fullWidth>
-                    <TextField
-                      required
-                      fullWidth
-                      name="empNo"
-                      type="text"
-                      id="EmpNo"
-                      size="small"
-                      defaultValue="0777123123"
-                      onChange={handleChange}
-                    />
-                  </Box>
-                </Grid>
-
-                <Grid item xs={3} sm={4}>
-                  Address
-                </Grid>
-                <Grid item xs={7} sm={8} border="1px">
-                  <Box borderRadius="borderRadius" {...defaultProps} fullWidth>
-                    <TextField
-                      required
-                      fullWidth
-                      name="empNo"
-                      type="text"
-                      id="EmpNo"
-                      size="small"
-                      defaultValue="Kokkuvil West , Kokkuvil"
-                      onChange={handleChange}
-                    />
-                  </Box>
-                </Grid>
-
-                <Grid item xs={3} sm={4}>
-                  Gender
-                </Grid>
-                <Grid item xs={7} sm={8} border="1px">
-                  <Box borderRadius="borderRadius" {...defaultProps} fullWidth>
-                    <Select
-                      onChange={handleChange}
-                      name="gender"
-                      value={values.gender}
-                    >
-                      <MenuItem value="1">Male</MenuItem>
-                      <MenuItem value="2">Female</MenuItem>
-                      <MenuItem value="3">Others</MenuItem>
-                    </Select>
-                  </Box>
-                </Grid>
-
-                <Grid item xs={3} sm={4}>
-                  Date Of Birth
-                </Grid>
-                <Grid item xs={7} sm={8} border="1px">
-                  <Box borderRadius="borderRadius" {...defaultProps} fullWidth>
-                    <TextField
-                      xs={12}
-                      id="dateTo"
-                      type="date"
-                      defaultValue="2012-12-12"
-                      fullWidth
-                    />
-                  </Box>
-                </Grid>
-              </Grid>
-            </React.Fragment>
-            <React.Fragment>
-              <div className={classes.buttons}>
-                <Button
-                  variant="contained"
-                  color="primary"
-                  onClick={handleNext}
-                  className={classes.button}
-                >
-                  Submit
-                </Button>
-              </div>
+                </div>
+              </form>
             </React.Fragment>
           </React.Fragment>
         </Paper>

@@ -100,6 +100,12 @@ export default function Header() {
     setAnchorEl(null);
     handleMobileMenuClose();
   };
+  // const handleSubmit = (e) => {
+  //   axios
+  //     .post(`http://localhost:5000/user/${_id}`, values)
+  //     .then((res) => console.log(res))
+  //     .catch((error) => console.log(error));
+  // };
 
   const handleMobileMenuOpen = (event) => {
     setMobileMoreAnchorEl(event.currentTarget);

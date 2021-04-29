@@ -27,8 +27,8 @@ const App = () => {
         />
         <Route path="/travel-claim" component={TravelClaim} />
         <Route path="/leave" component={Leave} />
-        <Route path="/profile" component={Profile} />
-        <Route path="/edit-profile" component={EditProfile} />
+        <Route path="/profile/:id" component={Profile} />
+        <Route path="/edit-profile/:id" component={EditProfile} />
 
         <Route path="/notification" component={Notification} />
       </Switch>

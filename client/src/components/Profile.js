@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import Paper from "@material-ui/core/Paper";
@@ -8,6 +8,7 @@ import Header from "./Header";
 import Copyright from "./CopyRights";
 import PhotoCameraIcon from "@material-ui/icons/PhotoCamera";
 import { Avatar, Box, Grid, IconButton } from "@material-ui/core";
+import axios from "axios";
 
 const useStyles = makeStyles((theme) => ({
   appBar: {
@@ -92,7 +93,16 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function Profile() {
+export default function Profile(props) {
+  const { match } = props;
+  const [values, setValues] = useState({});
+  useEffect(() => {
+    axios
+      .get(`/user/${match.params.id}`)
+      .then(({ data }) => setValues(data.user));
+    console.log(values);
+  }, []);
+
   const defaultProps = {
     bgcolor: "background.paper",
     style: {
@@ -105,12 +115,16 @@ export default function Profile() {
       paddingLeft: "10px",
     },
   };
+  const dateString = values.dateOfBirth;
+  const myDate = new Date(dateString);
+  const output =
+    myDate.getFullYear() +
+    " \\ " +
+    (myDate.getMonth() + 1) +
+    " \\ " +
+    myDate.getDate();
   const classes = useStyles();
-  const [activeStep, setActiveStep] = React.useState(0);
 
-  const handleNext = () => {
-    setActiveStep(activeStep + 1);
-  };
   return (
     <React.Fragment>
       <CssBaseline />
@@ -126,7 +140,6 @@ export default function Profile() {
                     <Button
                       variant="contained"
                       color="primary"
-                      onClick={handleNext}
                       className={classes.button}
                     >
                       Edit Profile
@@ -169,7 +182,9 @@ export default function Profile() {
                   justify="center"
                   alignItems="center"
                 >
-                  <Typography variant="h6">Dr.M.H.M.Himaz</Typography>
+                  <Typography variant="h6">
+                    {values.firstName} {values.lastName}
+                  </Typography>
                 </Grid>
                 <Grid
                   item
@@ -179,7 +194,7 @@ export default function Profile() {
                   justify="center"
                   alignItems="center"
                 >
-                  <Typography>Senior Lecturer</Typography>
+                  <Typography>{values.type}</Typography>
                 </Grid>
               </Grid>
 
@@ -189,7 +204,7 @@ export default function Profile() {
                 </Grid>
                 <Grid item xs={7} sm={8} border="1px">
                   <Box borderRadius="borderRadius" {...defaultProps} fullWidth>
-                    Mohammed Hilmy Mohammed Himaz
+                    {values.fullName}
                   </Box>
                 </Grid>
 
@@ -198,16 +213,7 @@ export default function Profile() {
                 </Grid>
                 <Grid item xs={7} sm={8} border="1px">
                   <Box borderRadius="borderRadius" {...defaultProps} fullWidth>
-                    emp-102
-                  </Box>
-                </Grid>
-
-                <Grid item xs={3} sm={4}>
-                  Employee Type
-                </Grid>
-                <Grid item xs={7} sm={8} border="1px">
-                  <Box borderRadius="borderRadius" {...defaultProps} fullWidth>
-                    Dean
+                    {values.empId}
                   </Box>
                 </Grid>
 
@@ -216,7 +222,7 @@ export default function Profile() {
                 </Grid>
                 <Grid item xs={7} sm={8} border="1px">
                   <Box borderRadius="borderRadius" {...defaultProps} fullWidth>
-                    Faculty Of Science
+                    {values.faculty}
                   </Box>
                 </Grid>
 
@@ -225,7 +231,7 @@ export default function Profile() {
                 </Grid>
                 <Grid item xs={7} sm={8} border="1px">
                   <Box borderRadius="borderRadius" {...defaultProps} fullWidth>
-                    himazmhmd@gmail.com
+                    {values.email}
                   </Box>
                 </Grid>
 
@@ -234,7 +240,7 @@ export default function Profile() {
                 </Grid>
                 <Grid item xs={7} sm={8} border="1px">
                   <Box borderRadius="borderRadius" {...defaultProps} fullWidth>
-                    0777123123
+                    {values.phoneNo}
                   </Box>
                 </Grid>
 
@@ -243,7 +249,7 @@ export default function Profile() {
                 </Grid>
                 <Grid item xs={7} sm={8} border="1px">
                   <Box borderRadius="borderRadius" {...defaultProps} fullWidth>
-                    Kokkuvil West , Kokkuvil
+                    {values.address}
                   </Box>
                 </Grid>
 
@@ -252,7 +258,7 @@ export default function Profile() {
                 </Grid>
                 <Grid item xs={7} sm={8} border="1px">
                   <Box borderRadius="borderRadius" {...defaultProps} fullWidth>
-                    Male
+                    {values.gender}
                   </Box>
                 </Grid>
 
@@ -261,7 +267,7 @@ export default function Profile() {
                 </Grid>
                 <Grid item xs={7} sm={8} border="1px">
                   <Box borderRadius="borderRadius" {...defaultProps} fullWidth>
-                    12/12/2012
+                    {output}
                   </Box>
                 </Grid>
               </Grid>
