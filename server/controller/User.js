@@ -1,14 +1,80 @@
 import User from "../models/User.js";
-
+import bcrypt from "bcrypt";
+import dotenv from "dotenv";
+import jwt from "jsonwebtoken";
+//import keys from "../../config/keys";
+import passport from "passport";
+dotenv.config();
 export const createUser = async (req, res) => {
   try {
     const user = new User({ ...req.body, isVerified: false });
-    const data = await user.save();
-    res.status(200).json({ msg: `SUCCESS.`, data });
+    
+
+    
+    bcrypt.genSalt(10, (err, salt) => {
+      bcrypt.hash(user.password, salt, (err, hash) => {
+        if (err) throw err;
+        user.password = hash;
+        user
+          .save()
+          .then(user => res.json(user))
+          .catch(err => console.log(err));
+      });
+    });
+    console.log(user);
+    //const data = await user.save();
+    //res.status(200).json({ msg: `SUCCESS.`, data });
   } catch (err) {
     res.status(400).json({ msg: `ERROR: ${err}` });
   }
 };
+
+export const loginUser = async (req, res) => {
+
+  let errors = {};
+  const email = req.body.email;
+  const password = req.body.password;
+
+  // Find user by email
+  User.findOne({ email }).then(user => {
+    // Check for user
+
+    console.log(req.body.email);
+    if (!user) {
+      errors.email = 'User not found';
+      return res.status(404).json(errors);
+    }
+
+    // Check Password
+    bcrypt.compare(password, user.password).then(isMatch => {
+      if (isMatch) {
+        // User Matched
+        const payload = { id: user.id, name: user.name }; // Create JWT Payload
+        console.log(payload);
+        // Sign Token
+        jwt.sign(
+          payload,
+          process.env.secretOrKey,
+          { expiresIn: 3600 },
+          (err, token) => {
+            res.json({
+              success: true,
+              token: 'Bearer ' + token
+            });
+
+            //console.log(keys.secretOrKey);
+          }
+        );
+      } else {
+        errors.password = 'Password incorrect';
+        return res.status(400).json(errors);
+      }
+    });
+  });
+
+};
+
+
 
 export const deleteUser = async (req, res) => {
   try {
@@ -23,6 +89,7 @@ export const deleteUser = async (req, res) => {
 export const getUser = async (req, res) => {
   try {
     const user = await User.findById(req.params.id);
+    console.log(user);
     res.status(200).json({ msg: `SUCCESS.`, user });
   } catch (err) {
     res.status(400).json({ msg: `ERROR: ${err}` });

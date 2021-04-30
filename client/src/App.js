@@ -7,7 +7,7 @@ import Header from "./components/Header";
 import SignUp from "./components/SignUp";
 import Home from "./components/Home";
 import Leave from "./components/Leave";
-import NonAcademicDutyLeave from "./components/NonAcademicDutyLeave";
+import NonAcademicDutyLeave from "./components/nonAcademicDutyLeave";
 import TravelClaim from "./components/TravelClaim";
 import Profile from "./components/Profile";
 import EditProfile from "./components/EditProfile";
