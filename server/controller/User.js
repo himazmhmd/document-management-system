@@ -9,7 +9,6 @@ export const createUser = async (req, res) => {
   try {
     const user = new User({ ...req.body, isVerified: false });
     
-
     
     bcrypt.genSalt(10, (err, salt) => {
       bcrypt.hash(user.password, salt, (err, hash) => {
