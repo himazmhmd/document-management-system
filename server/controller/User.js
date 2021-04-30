@@ -2,7 +2,7 @@ import User from "../models/User.js";
 import bcrypt from "bcrypt";
 import dotenv from "dotenv";
 import jwt from "jsonwebtoken";
-//import keys from "../../config/keys";
+
 import passport from "passport";
 dotenv.config();
 export const createUser = async (req, res) => {
