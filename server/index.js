@@ -6,6 +6,7 @@ import dotenv from "dotenv";
 dotenv.config();
 
 import userRoute from "./routes/User.js";
+import leaveRoute from "./routes/Leave.js";
 
 const app = express();
 
@@ -14,6 +15,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cors());
 
 app.use("/user", userRoute);
+app.use("/leaves", leaveRoute);
 
 const PORT = process.env.PORT || 5000;
 

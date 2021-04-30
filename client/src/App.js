@@ -26,7 +26,7 @@ const App = () => {
           component={NonAcademicDutyLeave}
         />
         <Route path="/travel-claim" component={TravelClaim} />
-        <Route path="/leave" component={Leave} />
+        <Route path="/leave/:id" component={Leave} />
         <Route path="/profile/:id" component={Profile} />
         <Route path="/edit-profile/:id" component={EditProfile} />
 

@@ -4,20 +4,14 @@ import express from "express";
   userValidationResult,
 } = require("../Validators/userValidator");*/
 
-import {
-  createUser,
-  deleteUser,
-  getUser,
-  getUsers,
-  updateUser,
-} from "../controller/User.js";
+import * as controller from "../controller/User.js";
 
 const router = express.Router();
 
-router.post("/sign-up", createUser);
-router.get("/", getUsers);
-router.get("/:id", getUser);
-router.delete("/:id", deleteUser);
-router.put("/:id", updateUser);
+router.post("/sign-up", controller.createUser);
+router.get("/", controller.getUsers);
+router.get("/:id", controller.getUser);
+router.delete("/:id", controller.deleteUser);
+router.put("/:id", controller.updateUser);
 
 export default router;

@@ -45,11 +45,31 @@ const userSchema = new Schema({
   },
   dutyLeave: [
     {
-      to: {
+      dateTo: {
         type: Date,
       },
-      from: {
+      dateFrom: {
         type: Date,
+      },
+      apointmentDate: {
+        type: Date,
+      },
+
+      reason: {
+        type: String,
+      },
+      nameOfActor: {
+        type: String,
+      },
+      actorEmail: { type: String, trim: true },
+      isHODApproved: {
+        type: Boolean,
+      },
+      isDeanApproved: {
+        type: Boolean,
+      },
+      isARApproved: {
+        type: Boolean,
       },
     },
   ],
