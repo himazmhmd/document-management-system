@@ -3,6 +3,8 @@ import mongoose from "mongoose";
 const { Schema } = mongoose;
 import bcrypt from "bcrypt";
 
+
+
 const userSchema = new Schema({
   firstName: {
     type: String,
@@ -34,6 +36,16 @@ const userSchema = new Schema({
     trim: true,
     unique: true,
   },
+  
+  password: {
+    type: String,
+    required: true,
+    trim: true,
+
+  },
+
+
+
   address: {
     type: String,
   },
@@ -43,6 +55,10 @@ const userSchema = new Schema({
   dateOfBirth: {
     type: Date,
   },
+
+  
+
+
   dutyLeave: [
     {
       dateTo: {
@@ -74,6 +90,8 @@ const userSchema = new Schema({
     },
   ],
 });
+
+
 userSchema.methods.generateHash = function (password) {
   return bcrypt.hashSync(password, bcrypt.genSaltSync(8), null);
 };

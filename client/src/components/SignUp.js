@@ -46,7 +46,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function SignUp() {
   const classes = useStyles();
-
+  
   const [values, setValues] = useState({
     firstName: "",
     lastName: "",
@@ -67,11 +67,16 @@ export default function SignUp() {
     setValues({ ...values, [e.target.name]: e.target.value });
 
   const handleSubmit = (e) => {
+
+    console.log(values);
     e.preventDefault();
     axios
       .post("http://localhost:5000/user/sign-up", values)
       .then((res) => console.log(res))
       .catch((error) => console.log(error));
+
+
+
   };
 
   return (
